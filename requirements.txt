@@ -1,0 +1,56 @@
+# ============================================================
+# AI-Driven Smart Traffic Management System
+# requirements.txt — Compatible with Python 3.12/3.13 + Windows
+# ============================================================
+
+# ── Core Computer Vision ─────────────────────────────────────
+opencv-python>=4.9.0.80
+opencv-contrib-python>=4.9.0.80
+
+# ── AI / Object Detection ────────────────────────────────────
+ultralytics>=8.2.18               # YOLOv8 — auto-pulls compatible torch
+torch>=2.6.0                      # PyTorch (latest compatible)
+torchvision>=0.20.0               # Required by torch
+
+# ── Object Tracking ──────────────────────────────────────────
+lapx>=0.5.2                       # lap replacement that works on Python 3.12+
+filterpy>=1.4.5
+scikit-image>=0.23.2
+
+# ── SUMO Traffic Simulation ──────────────────────────────────
+traci>=1.20.0
+
+# ── Data & Analytics ─────────────────────────────────────────
+numpy>=1.26.4
+pandas>=2.2.2
+scipy>=1.13.0
+
+# ── Database ─────────────────────────────────────────────────
+psycopg2-binary>=2.9.9
+sqlalchemy>=2.0.30
+
+# ── Dashboard / Visualization ────────────────────────────────
+streamlit>=1.35.0
+plotly>=5.22.0
+matplotlib>=3.9.0
+seaborn>=0.13.2
+
+# ── Utilities ────────────────────────────────────────────────
+Pillow>=10.3.0
+pyyaml>=6.0.1
+python-dotenv>=1.0.1
+tqdm>=4.66.4
+loguru>=0.7.2
+click>=8.1.7
+rich>=13.7.1
+tabulate>=0.9.0
+
+# ── Testing ──────────────────────────────────────────────────
+pytest>=8.2.0
+pytest-cov>=5.0.0
+pytest-mock>=3.14.0
+
+# ── Development ──────────────────────────────────────────────
+black>=24.4.2
+flake8>=7.0.0
+isort>=5.13.2

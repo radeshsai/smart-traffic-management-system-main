@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    intersection.net.xml — SUMO Road Network
+    ==========================================
+    4-way intersection with one lane per direction.
+    Junction ID: "center"
+    Each approach: 200m long, speed limit 13.9 m/s (~50 km/h)
+-->
+<net version="1.16" junctionCornerDetail="5"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <!-- ── Edge Types ──────────────────────────────────────────── -->
+    <type id="urban" priority="1" numLanes="1" speed="13.89"
+          allow="passenger motorcycle bus truck"/>
+
+    <!-- ── Nodes (junctions) ───────────────────────────────────── -->
+    <!-- Center intersection -->
+    <junction id="center" type="traffic_light"
+              x="0.00" y="0.00"
+              incLanes="north_in_0 south_in_0 east_in_0 west_in_0"
+              intLanes=""
+              shape="-3.20,3.20 3.20,3.20 3.20,-3.20 -3.20,-3.20">
+        <request index="0" response="0000" foes="0000" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
+    </junction>
+
+    <!-- Approach endpoints -->
+    <junction id="north_end" type="dead_end" x="0.00"   y="200.00" incLanes="" intLanes="" shape=""/>
+    <junction id="south_end" type="dead_end" x="0.00"   y="-200.00" incLanes="" intLanes="" shape=""/>
+    <junction id="east_end"  type="dead_end" x="200.00" y="0.00"   incLanes="" intLanes="" shape=""/>
+    <junction id="west_end"  type="dead_end" x="-200.00" y="0.00"  incLanes="" intLanes="" shape=""/>
+
+    <!-- ── Edges (road segments) ────────────────────────────────── -->
+    <!-- North approach: vehicles coming FROM north INTO center -->
+    <edge id="north_in"  from="north_end" to="center" priority="1" numLanes="1" speed="13.89">
+        <lane id="north_in_0" index="0" speed="13.89" length="200.00"
+              shape="0.00,200.00 0.00,3.20"/>
+    </edge>
+
+    <!-- North exit: vehicles leaving center TO north -->
+    <edge id="north_out" from="center" to="north_end" priority="1" numLanes="1" speed="13.89">
+        <lane id="north_out_0" index="0" speed="13.89" length="200.00"
+              shape="0.00,-3.20 0.00,-200.00"/>
+    </edge>
+
+    <!-- South approach -->
+    <edge id="south_in"  from="south_end" to="center" priority="1" numLanes="1" speed="13.89">
+        <lane id="south_in_0" index="0" speed="13.89" length="200.00"
+              shape="0.00,-200.00 0.00,-3.20"/>
+    </edge>
+
+    <!-- South exit -->
+    <edge id="south_out" from="center" to="south_end" priority="1" numLanes="1" speed="13.89">
+        <lane id="south_out_0" index="0" speed="13.89" length="200.00"
+              shape="0.00,3.20 0.00,200.00"/>
+    </edge>
+
+    <!-- East approach -->
+    <edge id="east_in"   from="east_end"  to="center" priority="1" numLanes="1" speed="13.89">
+        <lane id="east_in_0" index="0" speed="13.89" length="200.00"
+              shape="200.00,0.00 3.20,0.00"/>
+    </edge>
+
+    <!-- East exit -->
+    <edge id="east_out"  from="center" to="east_end"  priority="1" numLanes="1" speed="13.89">
+        <lane id="east_out_0" index="0" speed="13.89" length="200.00"
+              shape="-3.20,0.00 -200.00,0.00"/>
+    </edge>
+
+    <!-- West approach -->
+    <edge id="west_in"   from="west_end"  to="center" priority="1" numLanes="1" speed="13.89">
+        <lane id="west_in_0" index="0" speed="13.89" length="200.00"
+              shape="-200.00,0.00 -3.20,0.00"/>
+    </edge>
+
+    <!-- West exit -->
+    <edge id="west_out"  from="center" to="west_end"  priority="1" numLanes="1" speed="13.89">
+        <lane id="west_out_0" index="0" speed="13.89" length="200.00"
+              shape="3.20,0.00 200.00,0.00"/>
+    </edge>
+
+    <!-- ── Connections (turn mappings) ──────────────────────────── -->
+    <connection from="north_in" to="south_out" fromLane="0" toLane="0" via="" tl="center_tl" linkIndex="0" dir="s" state="o"/>
+    <connection from="south_in" to="north_out" fromLane="0" toLane="0" via="" tl="center_tl" linkIndex="1" dir="s" state="o"/>
+    <connection from="east_in"  to="west_out"  fromLane="0" toLane="0" via="" tl="center_tl" linkIndex="2" dir="s" state="o"/>
+    <connection from="west_in"  to="east_out"  fromLane="0" toLane="0" via="" tl="center_tl" linkIndex="3" dir="s" state="o"/>
+
+</net>

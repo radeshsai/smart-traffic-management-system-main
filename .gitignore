@@ -1,0 +1,67 @@
+# ── Python ────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ── Virtual environment ──────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── Project-specific: database ───────────────────────────────────────────
+# The DB is regenerated on every run and changes constantly — never commit it.
+database/traffic.db
+database/*.db
+database/*.db-journal
+database/*.db-wal
+database/*.db-shm
+
+# ── Project-specific: model weights ──────────────────────────────────────
+# Auto-downloaded by Ultralytics on first run — don't bloat the repo with
+# multi-megabyte weight files that anyone can re-download.
+models/*.pt
+models/_project_bytetrack.yaml
+
+# ── Project-specific: video input (can be large) ─────────────────────────
+# Uncomment the line below if your videos are large/private and you don't
+# want them in the repo at all. Leave commented if you DO want to commit
+# sample videos for the project to be runnable out of the box.
+data/input/*.mp4
+
+# ── Project-specific: generated outputs ──────────────────────────────────
+outputs/logs/
+outputs/frames/
+outputs/reports/
+outputs/simulation_results/
+
+# ── SUMO simulation outputs ───────────────────────────────────────────────
+simulation/sumo_config/*.xml.bak
+*.sumo.cfg.bak
+
+# ── IDE / OS ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ── Streamlit ─────────────────────────────────────────────────────────────
+.streamlit/secrets.toml

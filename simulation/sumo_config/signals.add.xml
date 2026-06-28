@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    signals.add.xml — SUMO Traffic Light Definitions
+    ==================================================
+    Defines the traffic light program for the center junction.
+    TraCI will override these phases dynamically at runtime.
+
+    Phase string index mapping (linkIndex from net.xml):
+      Index 0 → north_in → south_out
+      Index 1 → south_in → north_out
+      Index 2 → east_in  → west_out
+      Index 3 → west_in  → east_out
+
+    Phase string chars: G=green, y=yellow, r=red
+-->
+<additional>
+
+    <tlLogic id="center_tl" type="static" programID="adaptive" offset="0">
+
+        <!-- Phase 0: NORTH green (default 20s — TraCI overrides duration) -->
+        <phase duration="20" state="Grrr" name="north_green"/>
+
+        <!-- Phase 1: NORTH yellow -->
+        <phase duration="3"  state="yrrr" name="north_yellow"/>
+
+        <!-- Phase 2: ALL RED clearance -->
+        <phase duration="2"  state="rrrr" name="all_red_1"/>
+
+        <!-- Phase 3: SOUTH green -->
+        <phase duration="20" state="rGrr" name="south_green"/>
+
+        <!-- Phase 4: SOUTH yellow -->
+        <phase duration="3"  state="ryrr" name="south_yellow"/>
+
+        <!-- Phase 5: ALL RED clearance -->
+        <phase duration="2"  state="rrrr" name="all_red_2"/>
+
+        <!-- Phase 6: EAST green -->
+        <phase duration="20" state="rrGr" name="east_green"/>
+
+        <!-- Phase 7: EAST yellow -->
+        <phase duration="3"  state="rryr" name="east_yellow"/>
+
+        <!-- Phase 8: ALL RED clearance -->
+        <phase duration="2"  state="rrrr" name="all_red_3"/>
+
+        <!-- Phase 9: WEST green -->
+        <phase duration="20" state="rrrG" name="west_green"/>
+
+        <!-- Phase 10: WEST yellow -->
+        <phase duration="3"  state="rrry" name="west_yellow"/>
+
+        <!-- Phase 11: ALL RED clearance -->
+        <phase duration="2"  state="rrrr" name="all_red_4"/>
+
+    </tlLogic>
+
+</additional>
