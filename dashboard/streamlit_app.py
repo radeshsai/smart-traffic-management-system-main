@@ -85,14 +85,15 @@ def read_counts():
 def read_density():
     result = {}
     for d in DIRS:
-        row = _q1("SELECT density_level,congestion_score,vehicle_count,recommended_green "
+        row = _q1("SELECT density_level,congestion_score,vehicle_count,recommended_green,smoothed_count "
                   "FROM density_logs WHERE direction=? ORDER BY id DESC LIMIT 1", (d,))
         if row:
             result[d] = {"level": row[0] or "LOW", "score": float(row[1] or 0),
                          "vehicle_count": int(row[2] or 0),
-                         "recommended_green": int(row[3] or 20)}
+                         "recommended_green": int(row[3] or 20),
+                         "smoothed_count": float(row[4]) if row[4] is not None else float(row[2] or 0)}
         else:
-            result[d] = {"level":"LOW","score":0,"vehicle_count":0,"recommended_green":20}
+            result[d] = {"level":"LOW","score":0,"vehicle_count":0,"recommended_green":20,"smoothed_count":0.0}
     return result
 
 def read_signals():
@@ -482,17 +483,20 @@ def render_main_kpis():
             level = dens.get("level","LOW")
             phase = sig.get("phase","RED")
             score = float(dens.get("score",0))
+            smoothed = float(dens.get("smoothed_count", count))
             rem_s = float(sig.get("remaining_seconds",0))
             color = DIR_COLORS.get(d,"#aaa")
             st.markdown(
                 f"""<div class="dir-card">
                 <div style="font-size:1.1rem;font-weight:700;color:{color};margin-bottom:6px">{d.upper()}</div>
                 <div style="font-size:1.6rem;font-weight:700;color:{color}">{count}
-                  <span style="font-size:.8rem;color:#aaa;font-weight:400"> vehicles</span></div>
-                <div style="margin:4px 0">{dbadge(level)}</div>
+                  <span style="font-size:.8rem;color:#aaa;font-weight:400"> vehicles (live)</span></div>
+                <div style="margin:4px 0">{dbadge(level)}
+                  <span style="font-size:.74rem;color:#888;margin-left:6px">avg: {smoothed:.1f}</span></div>
                 <div style="margin:4px 0">{sbadge(phase)} &nbsp; {rem_s:.0f}s</div>
                 <div style="color:#aaa;font-size:.82rem">Congestion: {score:.1f}/100</div>
                 </div>""", unsafe_allow_html=True)
+
 
 
 # Render the sidebar fragment — wrapped in `with st.sidebar:` from the
