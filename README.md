@@ -6,10 +6,11 @@
 [![YOLOv8](https://img.shields.io/badge/YOLOv8s-Ultralytics-orange.svg)](https://ultralytics.com)
 [![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-red.svg)](https://streamlit.io)
 [![SQLite](https://img.shields.io/badge/Database-SQLite-green.svg)](https://sqlite.org)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **A final-year B.Tech project that uses AI to dynamically control traffic signals
 based on real-time vehicle detection from four directional camera feeds.**
+
+🔗 **Repository:** [github.com/radeshsai/smart-traffic-management-system-main](https://github.com/radeshsai/smart-traffic-management-system-main)
 
 </div>
 
@@ -130,7 +131,7 @@ smart-traffic-management-system/
 │   └── traffic.db             ← Auto-created on first run
 │
 ├── data/
-│   ├── input/                 ← Place north/south/east/west.mp4 here
+│   ├── input/                 ← Empty after cloning (videos are git-ignored) — add your own .mp4s here
 │   └── processed/
 │
 ├── models/
@@ -156,8 +157,8 @@ smart-traffic-management-system/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/smart-traffic-management-system.git
-cd smart-traffic-management-system
+git clone https://github.com/radeshsai/smart-traffic-management-system-main.git
+cd smart-traffic-management-system-main
 ```
 
 ### 2. Create Virtual Environment
@@ -177,7 +178,11 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 4. Place Video Files
+### 4. Add Video Files (not included in this repo)
+Video files are **excluded from version control** (`.gitignore` blocks
+`data/input/*.mp4`) — they're large, and not something that belongs in Git
+history. After cloning, `data/input/` will be **empty**, and you need to add
+your own four video files there before running detection:
 ```
 data/input/north.mp4
 data/input/south.mp4
@@ -185,7 +190,8 @@ data/input/east.mp4
 data/input/west.mp4
 ```
 
-> No real videos? Generate synthetic test videos:
+> No real videos? Generate synthetic test videos instead — this works
+> immediately after cloning, with no manual file copying needed:
 > ```bash
 > python main.py --generate-test-videos
 > ```
@@ -194,6 +200,10 @@ data/input/west.mp4
 > size** before detection. Mixing very different resolutions (e.g. 480p and 4K)
 > is supported, but expect the higher-resolution feeds to cost more CPU time
 > per frame.
+
+> 📦 If you're moving this project to a new machine (not cloning fresh), copy
+> your `data/input/*.mp4` files over manually — they won't come from GitHub
+> since they were deliberately never committed.
 
 ---
 
@@ -392,8 +402,8 @@ CMD ["streamlit", "run", "dashboard/streamlit_app.py", "--server.address", "0.0.
 ### Option D — AWS EC2
 ```bash
 # On EC2 instance
-git clone https://github.com/yourusername/smart-traffic-management-system.git
-cd smart-traffic-management-system
+git clone https://github.com/radeshsai/smart-traffic-management-system-main.git
+cd smart-traffic-management-system-main
 pip install -r requirements.txt
 nohup streamlit run dashboard/streamlit_app.py --server.port 8501 &
 ```
@@ -424,7 +434,7 @@ nohup streamlit run dashboard/streamlit_app.py --server.port 8501 &
 |---|---|
 | `No module named loguru` | `pip install -r requirements.txt` |
 | `yolov8s.pt not found` | Run detection once — auto-downloads (needs internet) |
-| Videos not loading | Check `data/input/` for .mp4 files |
+| Videos not loading / `data/input/` is empty after cloning | **Expected** — video files are git-ignored, not included in the repo. Add your own .mp4 files, or run `python main.py --generate-test-videos` |
 | Dashboard shows N/A | Wait a few seconds after starting detection (Step 1) |
 | Signal stuck on GREEN | Ensure `main.py --mode detect` is running (Terminal 1) |
 | **Sim tab / SUMO Metrics empty** | Run `python main.py --mode simulate` (Step 3) — the dashboard never writes data itself, it only reads what detection/simulation have written |
